@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\car;
+use App\Models\Car;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
             'username' => 'angel.alvarez',
             'email' => 'angel.alvarez.lozano@outlook.com'
         ]);
-        car::factory(6)->create();
+        Car::factory(6)->create();
     }
 }

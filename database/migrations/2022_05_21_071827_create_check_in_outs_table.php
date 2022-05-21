@@ -17,7 +17,7 @@ class CreateCheckInOutsTable extends Migration
             $table->id();
             $table->string("id_car");
             $table->dateTime("fecha_entrada");
-            $table->dateTime("fecha_salida");
+            $table->dateTime("fecha_salida")->nullable();
             // $table->integer("");
             $table->timestamps();
             // $table->foreign('id_car')->references('id')->on('cars');

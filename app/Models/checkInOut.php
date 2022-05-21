@@ -5,7 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class checkInOut extends Model
+class CheckInOut extends Model
 {
-    use HasFactory;
+//     protected $fillable = [
+//         'id_car',
+//         'fecha_entrada',
+//         'fecha_salida'
+//     ];
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\car;
+use App\Models\Car;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -14,17 +14,28 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        try {
+            $cars = Car::all();
+            return response([
+                'msg' => 'Listado de vehículos',
+                'success' => false,
+                'data' => [
+                    'cars' => $cars
+                ],
+                'exceptions' => null
+            ], 200);
+        } catch (Exception $e) {
+            return response([
+                'msg' => 'Error al mostrar listado de vehículos',
+                'success' => false,
+                'data' => [
+                    'msgError' => $e->getFile() . ". Línea de fallo => " . $e->getLine()
+                ],
+                'exceptions' => [
+                    'msgError' => $e->getMessage()
+                ],
+            ], 400);
+        }
     }
 
     /**
@@ -46,13 +57,13 @@ class CarController extends Controller
             }
 
             //Ingresando request e ingresando fecha y hora de entrada
-            $car = new car();
+            $car = new Car();
             $car->placas_automovil = $request->get("placas");
             $car->fecha_entrada = Carbon::now()->format('Y-m-d H:i:s');
             $car->save();
 
             return response([
-                'msg' => 'Entrada de vehiculo correctamente',
+                'msg' => 'Entrada de vehículo correctamente',
                 'success' => true,
                 'data' => [
                     'car' => $car
@@ -61,7 +72,7 @@ class CarController extends Controller
             ], 200);
         } catch (Exception $e) {
             return response([
-                'msg' => 'Error al registra la entrada del vehiculo ' . $request->get("placas"),
+                'msg' => 'Error al registra la entrada del vehículo ' . $request->get("placas"),
                 'success' => false,
                 'data' => [
                     'msgError' => $e->getFile() . ". Línea de fallo => " . $e->getLine()
@@ -73,48 +84,8 @@ class CarController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\car  $car
-     * @return \Illuminate\Http\Response
-     */
-    public function show(car $car)
+    public static function getIdCarType($placas)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\car  $car
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(car $car)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\car  $car
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, car $car)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\car  $car
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(car $car)
-    {
-        //
+        return Car::where('placas_vehiculo', $placas)->select(['id', 'tipo'])->firstOrFail();
     }
 }
