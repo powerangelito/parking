@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\car;
-use App\Models\checkInOut;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Validator;
 
-class CheckInController extends Controller
+class CarController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -48,19 +45,17 @@ class CheckInController extends Controller
                 return $validator->errors();
             }
 
-            $idCar = car::where('placas_vehiculo', $request->get('placas'))->select('id')->firstOrFail();
-
             //Ingresando request e ingresando fecha y hora de entrada
-            $checkIn = new checkInOut();
-            $checkIn->id_car = $idCar->id;
-            $checkIn->fecha_entrada = Carbon::now()->format('Y-m-d H:i:s');
-            $checkIn->save();
+            $car = new car();
+            $car->placas_automovil = $request->get("placas");
+            $car->fecha_entrada = Carbon::now()->format('Y-m-d H:i:s');
+            $car->save();
 
             return response([
                 'msg' => 'Entrada de vehiculo correctamente',
                 'success' => true,
                 'data' => [
-                    'checkIn' => $checkIn
+                    'car' => $car
                 ],
                 'exceptions' => null,
             ], 200);
@@ -81,10 +76,10 @@ class CheckInController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\checkIn  $checkIn
+     * @param  \App\Models\car  $car
      * @return \Illuminate\Http\Response
      */
-    public function show(checkIn $checkIn)
+    public function show(car $car)
     {
         //
     }
@@ -92,10 +87,10 @@ class CheckInController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\checkIn  $checkIn
+     * @param  \App\Models\car  $car
      * @return \Illuminate\Http\Response
      */
-    public function edit(checkIn $checkIn)
+    public function edit(car $car)
     {
         //
     }
@@ -104,10 +99,10 @@ class CheckInController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\checkIn  $checkIn
+     * @param  \App\Models\car  $car
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, checkIn $checkIn)
+    public function update(Request $request, car $car)
     {
         //
     }
@@ -115,10 +110,10 @@ class CheckInController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\checkIn  $checkIn
+     * @param  \App\Models\car  $car
      * @return \Illuminate\Http\Response
      */
-    public function destroy(checkIn $checkIn)
+    public function destroy(car $car)
     {
         //
     }

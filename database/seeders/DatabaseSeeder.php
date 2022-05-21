@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\car;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory(1)->create([
+            'name' => 'Angel Alvarez',
+            'username' => 'angel.alvarez',
+            'email' => 'angel.alvarez.lozano@outlook.com'
+        ]);
+        car::factory(6)->create();
     }
 }

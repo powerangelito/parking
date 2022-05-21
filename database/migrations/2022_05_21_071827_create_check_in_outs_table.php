@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCheckOutsTable extends Migration
+class CreateCheckInOutsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateCheckOutsTable extends Migration
      */
     public function up()
     {
-        Schema::create('check_outs', function (Blueprint $table) {
+        Schema::create('check_in_outs', function (Blueprint $table) {
             $table->id();
-            $table->string("placas_automovil");
+            $table->string("id_car");
+            $table->dateTime("fecha_entrada");
             $table->dateTime("fecha_salida");
+            // $table->integer("");
             $table->timestamps();
+            // $table->foreign('id_car')->references('id')->on('cars');
+
         });
     }
 
@@ -28,6 +32,6 @@ class CreateCheckOutsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('check_outs');
+        Schema::dropIfExists('check_in_outs');
     }
 }
