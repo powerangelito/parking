@@ -30,6 +30,15 @@ class CheckOutController extends Controller
 
             $idCar = CarController::getIdCarType($request->get('placas'));
 
+            if (!$idCar) {
+                $registro = CheckInOut::where('id_car', $request->get('placas'))->firstOrFail();
+                $registro->fecha_salida = Carbon::now()->format('Y-m-d H:i:s');
+                $minutos = $registro->fecha_salida->diffInSeconds($registro->fecha_entrada);
+                $importe = ($minutos * 1) / 0.5;
+                $registro->importe = $importe;
+                $registro->save();
+            }
+
             $registro = CheckInOut::where('id_car', $idCar->id)->firstOrFail();
             $registro->fecha_salida = Carbon::now()->format('Y-m-d H:i:s');
             $registro->save();

@@ -28,12 +28,27 @@ class CheckInController extends Controller
                 return $validator->errors();
             }
 
+            $estancia = false;
+
             $idCar = CarController::getIdCarType($request->get('placas'));
+            if (!$idCar) {
+                $checkIn = new CheckInOut();
+                $checkIn->id_car = $request->get('placas');
+                $checkIn->fecha_entrada = Carbon::now()->format('Y-m-d H:i:s');
+                $checkIn->activo = true;
+                $checkIn->estancia = $estancia;
+                $checkIn->save();
+            }
+
+            //Se determina si es Oficial o Residente
+            $estancia = ($idCar->tipo == "Oficial") ? true : false;
 
             //Ingresando request e ingresando fecha y hora de entrada
             $checkIn = new CheckInOut();
             $checkIn->id_car = $idCar->id;
             $checkIn->fecha_entrada = Carbon::now()->format('Y-m-d H:i:s');
+            $checkIn->activo = true;
+            $checkIn->estancia = $estancia;
             $checkIn->save();
 
             return response([

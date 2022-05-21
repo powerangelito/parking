@@ -86,6 +86,6 @@ class CarController extends Controller
 
     public static function getIdCarType($placas)
     {
-        return Car::where('placas_vehiculo', $placas)->select(['id', 'tipo'])->firstOrFail();
+        return Car::where('placas_vehiculo', $placas)->select(['id', 'tipo'])->first();
     }
 }
