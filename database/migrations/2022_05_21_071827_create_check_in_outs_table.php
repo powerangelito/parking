@@ -18,10 +18,11 @@ class CreateCheckInOutsTable extends Migration
             $table->string("id_car");
             $table->dateTime("fecha_entrada");
             $table->dateTime("fecha_salida")->nullable();
-            // $table->integer("");
+            $table->boolean("activo")->nullable();
+            $table->boolean("estancia")->nullable();
+            $table->integer("acumulado")->nullable();
+            $table->integer("importe")->nullable();
             $table->timestamps();
-            // $table->foreign('id_car')->references('id')->on('cars');
-
         });
     }
 
