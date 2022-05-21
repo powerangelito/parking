@@ -9,19 +9,19 @@
 
 ## Acerca de Parking
 
-#Ejecutar el comando
+# Ejecutar el comando
 ```
 composer install
 ```
 
-#Despues de esto configurar las credenciales de la base de datos en el archivo .env
+# Despues de esto configurar las credenciales de la base de datos en el archivo .env
 
-#Seguido ejecutamos el siguiente comando para ingresar las tablas a las base
+# Seguido ejecutamos el siguiente comando para ingresar las tablas a las base
 ```
 php artisan migrate:refresh
 ```
 
-#Posteriormente se ejecuta el siguiente comando, para ingresar los seeders
+# Posteriormente se ejecuta el siguiente comando, para ingresar los seeders
 ```
 php artisan migrate --seed
 ```
